@@ -151,6 +151,12 @@ input[name="deleteEntry1"], input[name="deletetopic"], input[name="deleteEntry"]
     padding: 10px;
     border:none;
 }
+input[name="createEntry"], input[name="changeUsername"], input[name="changePass"] {
+    background-color: #03C04A;
+    color: white;
+    padding: 10px;
+    border:none;    
+}
 input {
     padding: 10px;
     background:white;
