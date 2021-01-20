@@ -20,21 +20,19 @@
                 if($finalResult > 0) { //If there are more than 0 results
                     echo '<p>There are ' . $finalResult . ' results from your search on "' . $searchInput . '":</p>';
                     while($list = mysqli_fetch_assoc($searchResult)) { //Display the results
-                        echo '<h3> Topic: ' . $list["topicTitle"] . '</h3>' . 
+                        echo '<h3> Language: ' . $list["topicTitle"] . '</h3>' . 
                         '<h4>' . $list["entryTitle"] . '</h4>' . 
                         '<p>' . $list["description"] . '</p><hr>';
                     }
                 } else { //If there are 0 results
                     echo '<p>There are ' . $finalResult . ' results your search on: "' . $searchInput . '"!</p>';
                 }
-
             }
         ?>
     </div> 
 <footer>
     <nav>
             <ul>
-                <li style="text-align: center; padding-right: 20px;">©2020-2021 NovGenT Dictionary </li>
                 <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
                 <li><a style="font-size: 22px;" href="guidelines.php">NovGenT's Guidelines</a></li>
                 <li><a href="www.facebook.com" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
