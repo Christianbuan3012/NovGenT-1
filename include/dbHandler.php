@@ -22,11 +22,12 @@ function inputSanitize($var, $connection) {
 if (isset($_POST['submit'])) {
 
     $username = inputSanitize("username", $connection);
+    $pin=inputSanitize("pin", $connection);
     $password = inputSanitize("password", $connection);
     $confPassword = inputSanitize("confPassword", $connection);
 
     //Check if some of the fields are empty when user try to register
-    if(empty($username) || empty($password) || empty($confPassword)) {
+    if(empty($username) || empty($password) || empty($confPassword) || empty($pin)) {
         header("Location: ../newAccount.php?error=emptyfields");
         exit();
     } 
@@ -35,8 +36,13 @@ if (isset($_POST['submit'])) {
         header("Location: ../newAccount.php?error=invalidusername");
         exit();
     } 
+    //PIN cannot be less than 2 or more than 10 characters
+    elseif (strlen($pin) < 2 || strlen($pin) > 6) {
+        header("Location: ../newAccount.php?error=invalidpin");
+        exit();
+    } 
     //Password cannot be less than 8 or more than 16 characters
-    elseif (strlen($password) < 8 || strlen($password) > 16) {
+    elseif (strlen($password) < 5 || strlen($password) > 16) {
         header("Location: ../newAccount.php?error=invalidpassword");
         exit();
     } 
@@ -62,14 +68,14 @@ if (isset($_POST['submit'])) {
                 header("Location: ../newAccount.php?error=useralreadytaken");
                 exit();
             } else { //If the username does not exist
-                $sql = "INSERT INTO users (username, password) VALUES (?, ?)"; //Passing placeholders ?
+                $sql = "INSERT INTO users (pin, username, password) VALUES (?, ?, ?)"; //Passing placeholders ?
                 $statement = mysqli_stmt_init($connection);
                 if (!mysqli_stmt_prepare($statement, $sql)) { //If it does not work
                     header("Location: ../newAccount.php?error=sqlerror");
                     exit();
                 } else { //If it works, pass the information with hashed password
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT); //Hashing the password
-                    mysqli_stmt_bind_param($statement, "ss", $username, $hashedPassword);
+                    mysqli_stmt_bind_param($statement, "sss", $pin, $username, $hashedPassword);
                     mysqli_stmt_execute($statement);
                     header("Location: ../index.php?signup=success");
                     exit();
@@ -144,7 +150,7 @@ if (isset($_POST['createTranslation'])) {
 
     $translation = inputSanitize("namecategory", $connection);
     $userId = $_SESSION['userId'];
-    $sql = "SELECT language FROM Translations WHERE language=?";
+    $sql = "SELECT topic FROM Translations WHERE topic=?";
 
     $statement = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($statement, $sql)) { //If it does not work
@@ -172,11 +178,11 @@ if (isset($_POST['createTranslation'])) {
 }
 
 //__________CREATE TOPIC______________________________________________________from create.php
-if (isset($_POST['createTopic'])) { 
+if (isset($_POST['createtopic'])) { 
 
     $title = inputSanitize("namecategory", $connection);
     $userId = $_SESSION['userId'];
-    $sql = "SELECT topicTitle FROM topics WHERE topicTitle=?";
+    $sql = "SELECT topicTitle FROM topic WHERE topicTitle=?";
 
     $statement = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($statement, $sql)) { //If it does not work
@@ -192,7 +198,7 @@ if (isset($_POST['createTopic'])) {
             header("Location: create.php?error=titlealreadyexist"); //Display error in the url
             exit();
         } else { //If the title does not exist in the db
-            $sql = "INSERT INTO topics (topicTitle, createdBy) VALUES (?,?)"; //Passing placeholders
+            $sql = "INSERT INTO topic (topicTitle, createdBy) VALUES (?,?)"; //Passing placeholders
             mysqli_stmt_prepare($statement, $sql);
             mysqli_stmt_bind_param($statement, "si", $title, $userId);
             mysqli_stmt_execute($statement);
@@ -212,18 +218,19 @@ if(isset($_SESSION['username'])) {
     if (isset($_POST['createEntry'])) { 
         $entrytitle = inputSanitize('entrytitle', $connection);
         $content = inputSanitize('content', $connection);
+        $content1 = inputSanitize('content1', $connection);       
         $userId = $_SESSION['userId'];
         $topicId = inputSanitize('topic', $connection);
 
         $statement = mysqli_stmt_init($connection);
-        $sql = "INSERT INTO entries (entryTitle, description, createdBy, topicId) VALUES (?,?,?,?)"; //Passing placeholders
+        $sql = "INSERT INTO entries (entryTitle, description, entryexample, createdBy, topicId) VALUES (?,?,?,?,?)"; //Passing placeholders
         
         if (!mysqli_stmt_prepare($statement, $sql)) { //If it does not work
             header("Location: create.php?error=sqlerror");
             exit();
         } else {
             mysqli_stmt_prepare($statement, $sql); 
-            mysqli_stmt_bind_param($statement, "ssii", $entrytitle, $content, $userId, $topicId);
+            mysqli_stmt_bind_param($statement, "sssii", $entrytitle, $content, $content1, $userId, $topicId);
             mysqli_stmt_execute($statement);
             header("Location: create.php?createentry=success");
             exit();  
@@ -235,9 +242,9 @@ if(isset($_SESSION['username'])) {
 
 
 
-//_______________DELETE TOPIC___________________________________________________from index.php
-if(isset($_POST['deleteTopic'])) {
-    $sql = "DELETE FROM topics WHERE topicId=" . $_REQUEST['topicId'];
+//_______________. TOPIC___________________________________________________from index.php
+if(isset($_POST['deletetopic'])) {
+    $sql = "DELETE FROM topic WHERE topicId=" . $_REQUEST['topicId'];
     $connection->query($sql);
     header("Location: index.php?deltopic=success");
     exit();  
@@ -246,7 +253,7 @@ if(isset($_POST['deleteTopic'])) {
 
 
 
-//_______________DELETE ENTRY__________________________________________________from index.php
+//_______________DELETE ENTRY (ADMIN PRIVILEGE)__________________________________________________from index.php
 if(isset($_POST['deleteEntry'])) {
     $sql = "DELETE FROM entries WHERE entryId=" . $_REQUEST['entryId'];
     $connection->query($sql);
@@ -255,8 +262,7 @@ if(isset($_POST['deleteEntry'])) {
 }
 //___________________________________________________________________________________________
 
-
-
+ 
 //________________DELETE USER (ADMIN PRIVILEGE)_____________________________from userList.php
 if(isset($_POST['deleteUser'])) {
     $sql = "DELETE FROM users WHERE userId=" . $_REQUEST['userId'];
@@ -266,7 +272,12 @@ if(isset($_POST['deleteUser'])) {
 }
 //___________________________________________________________________________________________
 
-
+if(isset($_POST['deleteEntry1'])) {
+    $sql = "DELETE FROM entries WHERE entryId=" . $_REQUEST['entryId'];
+    $connection->query($sql);
+    header("Location: entryList.php?delentry1=success");
+    exit();  
+}
 
 //___________UPDATE USERNAME_____________________________________________from userProfile.php
 if(isset($_POST['changeUsername'])) {
@@ -306,6 +317,7 @@ if(isset($_POST['changeUsername'])) {
 //__________UPDATE PASSWORD______________________________________________from userProfile.php
 if(isset($_POST['changePass'])) { 
     $currentPass = $_POST['currentPass']; //What user says is current password
+    $PIN=$_POST['currentpin']; //What user says is PIN
     $newPassword = $_POST['newPass'];   //The new password the user wants
     $confNewPassword = $_POST['confNewPass']; //Confirm the new password
     $userId = $_SESSION['userId'];     //The current user making the request
@@ -323,18 +335,19 @@ if(isset($_POST['changePass'])) {
 
         if($row = mysqli_fetch_assoc($result)) { //Fetch data from result into assoc array
             //Check if the input password from user is the same as the one saved in db on this user:
-            $checkPassword = password_verify($currentPass, $row['password']); 
+            $checkPassword = password_verify($currentPass, $row['password']);
+            $checkPin = password_verify($PIN, $row['pin']); 
 
-            if($checkPassword == false) { //If it is not the same
+            if($checkPassword == false || $checkPin == false) { //If it is not the same
                 header("Location: userProfile.php?error=wrongpassword");
-                exit();
+                exit();               
             } elseif ($newPassword !== $confNewPassword) { //If confirmed password is not equal
                 header("Location: userProfile.php?error=passwordnotmatch");
                 exit();
             } elseif (strlen($newPassword) < 8 || strlen($newPassword) > 16) { //Password must be <8 and >16
                 header("Location: userProfile.php?error=invalidpassword");
                 exit();
-            } elseif ($checkPassword == true) { //If the right password is typed in
+            } elseif ($checkPassword == true || $checkPin == true) { //If the right password is typed in
                 $sql = "UPDATE users SET password = ? WHERE userId = ?";
                 $newHashedPass = password_hash($newPassword, PASSWORD_DEFAULT); //Re-hash the new password
                 mysqli_stmt_prepare($statement, $sql); 
@@ -355,7 +368,7 @@ if(isset($_POST['changePass'])) {
 
 
 //__________________DISPLAY TOPICS_______________________________________________on index.php
-function displayTopics($query) { 
+function displaytopic($query) { 
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     $result = mysqli_query($connection, $query); 
     $checkResult = mysqli_num_rows($result); //Check if we have any result at all
@@ -371,13 +384,13 @@ function displayTopics($query) {
                     $sql = "SELECT COUNT(*) FROM entries WHERE topicId =" . $row['topicId'];
                     $db = $connection->query($sql);
                     $count = $db->fetch_row();
-                    $article .= $count[0] . " entries in this topic<br><br>";
-                    $article .= "<form method='post'><input type='submit' name='deleteTopic' value='Delete topic'><input type='hidden' name='topicId' value='" . $row['topicId'] . "'></form>";
+                    $article .= $count[0] . " entries in this language<br><br>";
+                    $article .= "<form method='post'><input type='submit' name='deletetopic' value='Delete language'><input type='hidden' name='topicId' value='" . $row['topicId'] . "'></form>";
                     
                 //Users can delete their own topics
                 } elseif($_SESSION['usertype'] == 'Author') { 
                 if($_SESSION['userId'] == $row['userId']) { 
-                    $article .= "<form method='post'><input type='submit' name='deleteTopic' value='Delete topic'><input type='hidden' name='topicId' value='" . $row['topicId'] . "'></form>";
+                    $article .= "<form method='post'><input type='submit' name='deletetopic' value='Delete language'><input type='hidden' name='topicId' value='" . $row['topicId'] . "'></form>";
                     }
                 }
             }
@@ -386,7 +399,7 @@ function displayTopics($query) {
             echo $article;
         }
     } else {
-        echo "<br><br>There are no topics right now. Log in or register to create one!";
+        echo "<br><br>There are no language right now. Log in or register to create one!";
     }
 }
 //___________________________________________________________________________________________
@@ -402,11 +415,12 @@ function displayEntries($sql){
 
     if($checkResult > 0) {   //If there are more than 0 results
         while($row = mysqli_fetch_assoc($result)) { //Put them into an assosiative array
-            $entries = '<article><h3>' . $row["entryTitle"] . '</h3>' . 
-                        '<p>Date: ' . $row['dateCreated'] . '</p>' .
+            $entries = '<article><h3>' . $row["entryTitle"] . '</h3>' .
                         '<p>' . $row['description'] . '</p>' .
+                        '<p><i> ' .$row['entryexample'] . '</i></p>'.
+                        '<p>Date: ' . $row['dateCreated'] . '</p>' .
                         '<p> Written by: ' . $row['username'] . '</p>' . 
-                        '<p> Topic: ' . $row['topicTitle'] . '</p>';
+                        '<p> language: ' . $row['topicTitle'] . '</p>';
 
             if(isset($_SESSION['usertype'])) {
                 if($_SESSION['usertype'] == 'Admin') {
@@ -423,7 +437,7 @@ function displayEntries($sql){
             echo $entries;
         }
     } else {
-        echo "There are no entries in this topic (yet).";
+        echo "There are no entries in this language (yet).";
     }
 }
 //___________________________________________________________________________________________
