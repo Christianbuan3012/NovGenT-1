@@ -6,54 +6,52 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="icon.png" />
-    <title>NovGenT Dictionary</title>
+    <title>NovGenT Online Dictionary</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&family=IBM+Plex+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript">
+    window.addEventListener("load", function () {
+    const loader = document.querySelector(".loader");
+    loader.className += " hidden";
+    });
+</script>
 </head>
 <body>
+    <div class="loader">
+        <img src="loading.gif" alt="Loading..." />
+    </div>
     <header>
         <nav>
             <ul>
                 <li><a style="font-size: 25px; font-weight: 900;" href="index.php">NovGenT</a></li>
-                <!-- Guest will see home and the only ones to see signup -->
                 <li><a href="index.php">Home</a></li>
                 <?php if(!isset($_SESSION['username'])) : ?>
                     <li><a href="newAccount.php">Sign up</a></li>
                 <?php endif ?>
 
-                <!-- Logged in users will see home, create and profile -->
                 <?php if(isset($_SESSION['username'])) : ?>                                      
                     <li><a href="userProfile.php">Account Settings</a></li>
                     <li><a href="create.php">Create an Entry</a></li>
                 <?php endif ?>
 
-                <!-- Admin will se everything including link to list of users -->
                 <?php if(isset($_SESSION['usertype'])) : ?>
                     <?php if($_SESSION['usertype'] == 'Admin') : ?>
                     <li><a href="userList.php">Manage Users</a></li>
-                <?php endif ?>
+                    <li><a href="entryList.php">Manage Entries</a></li>                  
+                    <?php endif ?>
                 <?php endif ?>
             </ul>
-        <!--------------------------------------------------------------------->
-        
-            <!--Search -->
-            <form action="search.php" method="POST">
-                <input type="search" name="search" id="search" placeholder="Search" style="width: 400px;">
-                <input type="submit" name="searchbutton" value="Search" style="width: 50px; padding-right: 100px;">
-            </form>
 
-            <!--Log in or out forms depending on the state -->
             <div class="signInOut">
                 <?php 
-                if(isset($_SESSION['username'])) { //If a user is logged in, only display logout
+                if(isset($_SESSION['username'])) {
                     $username = $_SESSION['username'];
                     echo "
                     <form action='include/dbHandler.php' method='post'>
                     <input type='submit' name='logout' id='logout' value='Log out'>
                     </form>";
-                } else { //If there is no user logged in, display the login form
+                } else {
                     echo '<form action="include/dbHandler.php" method="post">
                     <label for="username">Username:</label>
                     <input type="text" name="username" id="username" required="">
@@ -66,13 +64,3 @@ session_start();
             </div>
         </nav>
     </header>
-
-<div class="loader">
-    <img src="loading.gif" alt="Loading..." />
-</div>
-<script type="text/javascript">
-    window.addEventListener("load", function () {
-    const loader = document.querySelector(".loader");
-    loader.className += " hidden"; // class "loader hidden"
-});
-</script>
