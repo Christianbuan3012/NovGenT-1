@@ -317,7 +317,7 @@ if(isset($_POST['changeUsername'])) {
 //__________UPDATE PASSWORD______________________________________________from userProfile.php
 if(isset($_POST['changePass'])) { 
     $currentPass = $_POST['currentPass']; //What user says is current password
-    $PIN=$_POST['currentpin']; //What user says is PIN
+    $currentpin=$_POST['currentpin']; //What user says is PIN
     $newPassword = $_POST['newPass'];   //The new password the user wants
     $confNewPassword = $_POST['confNewPass']; //Confirm the new password
     $userId = $_SESSION['userId'];     //The current user making the request
@@ -336,29 +336,33 @@ if(isset($_POST['changePass'])) {
         if($row = mysqli_fetch_assoc($result)) { //Fetch data from result into assoc array
             //Check if the input password from user is the same as the one saved in db on this user:
             $checkPassword = password_verify($currentPass, $row['password']);
-            $checkPin = password_verify($PIN, $row['pin']); 
+            $checkPin = password_verify($currentpin, $row['pin']); 
 
             if($checkPassword == false) { //If it is not the same
                 header("Location: userProfile.php?error=wrongpassword");
                 exit();
-            }elseif($checkPin == false) { //If it is not the same
-                header("Location: userProfile.php?error=wrongpin");
-                exit();               
-            } elseif ($newPassword !== $confNewPassword) { //If confirmed password is not equal
-                header("Location: userProfile.php?error=passwordnotmatch");
-                exit();
-            } elseif (strlen($newPassword) < 8 || strlen($newPassword) > 16) { //Password must be <8 and >16
-                header("Location: userProfile.php?error=invalidpassword");
-                exit();
-            } elseif ($checkPassword == true || $checkPin == true) { //If the right password is typed in
-                $sql = "UPDATE users SET password = ? WHERE userId = ?";
-                $newHashedPass = password_hash($newPassword, PASSWORD_DEFAULT); //Re-hash the new password
-                mysqli_stmt_prepare($statement, $sql); 
-                mysqli_stmt_bind_param($statement, "si", $newHashedPass, $userId); //Connect the new pass to user
-                mysqli_stmt_execute($statement); //Pass it to the database
-                header("Location: userProfile.php?updatepassword=success");
-                exit();
-            } else {
+                if($checkPin == false) { //If it is not the same
+                    header("Location: userProfile.php?error=wrongpassword");
+                    exit();               
+                } elseif ($newPassword !== $confNewPassword) { //If confirmed password is not equal
+                    header("Location: userProfile.php?error=passwordnotmatch");
+                    exit();
+                } elseif (strlen($newPassword) < 8 || strlen($newPassword) > 16) { //Password must be <8 and >16
+                    header("Location: userProfile.php?error=invalidpassword");
+                    exit();
+                } elseif ($checkPassword == true || $checkPin == true) { //If the right password is typed in
+                    $sql = "UPDATE users SET password = ? WHERE userId = ?";
+                    $newHashedPass = password_hash($newPassword, PASSWORD_DEFAULT); //Re-hash the new password
+                    mysqli_stmt_prepare($statement, $sql); 
+                    mysqli_stmt_bind_param($statement, "si", $newHashedPass, $userId); //Connect the new pass to user
+                    mysqli_stmt_execute($statement); //Pass it to the database
+                    header("Location: userProfile.php?updatepassword=success");
+                    exit();
+                } else {
+                    header("Location: userProfile.php?error=notupdated");
+                    exit();
+                }
+            }else {
                 header("Location: userProfile.php?error=notupdated");
                 exit();
             }
