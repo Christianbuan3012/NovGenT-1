@@ -1,5 +1,5 @@
 <?php
-    include_once 'sinclude/etUp.php';
+    include_once 'include/setUp.php';
     include 'include/connect.php';
     include 'include/dbHandler.php';
     require 'header.php'
@@ -32,8 +32,12 @@
                 }
             }
         ?>
-
-        <p>Click on any topic below to see all its Word Entries. <?php if(!isset($_SESSION['username'])) : ?>
+        <form action="search.php" method="POST">
+            <input type="search" name="search" id="search" placeholder="Search" style="width: 400px;" required="">
+            <input type="submit" name="searchbutton" value="Search" style="width: 50px; padding-right: 100px;">
+        </form>
+        <p>Click on any language below to see all its Word Entries. 
+        <?php if(!isset($_SESSION['username'])) : ?>
         Log in, or sign up now to create your own!</p>
         <?php endif ?>
 
@@ -52,7 +56,7 @@
                 }
 
                 //Set cookie when users sorts the topics, to save their prefered choice 
-                if(isset($_GET['sortTopics'])){
+                if(isset($_GET['sorttopic'])){
                     setcookie($username, $_GET['sortingOption'], time() + (86400 * 30), "/");
                     header("location: index.php");
                 }
@@ -63,9 +67,9 @@
             <!--Form for sorting the topics-->
             <form action="index.php" method="get">
             <select name="sortingOption" id="sortingOption" style="font-size: 14px;border-width: 2px; padding: 9px;background:white;border-style: solid;border-color: black;color: #1DA1F2;font-weight: 900;font-family: 'IBM Plex Sans';border-radius: 5px;">
-            <option value="chronological" style="font-family: 'IBM Plex Sans';"<?php if($sort == "chronological"){echo "selected";}?>>By Chronologically</option>
-            <option value="popularity" style="font-family: 'IBM Plex Sans';"<?php if($sort == "popularity"){echo "selected";}?>>By popularity</option></select> 
-            <input type="submit" name="sortTopics" value="Sort topics" id="kwan">
+            <option value="chronological" <?php if($sort == "chronological"){echo "selected";}?>>By Chronologically</option>
+            <option value="popularity" <?php if($sort == "popularity"){echo "selected";}?>>By popularity</option></select> 
+            <input type="submit" name="sorttopic" value="Sort language" id="kwan">
             </form>
 
             <!--Feedback to the user to let him/her know what their saved selection is:-->
@@ -76,26 +80,26 @@
             if($sort == "chronological"){ //If the user chooses chronological
                     
                 //Order by the topic title
-                $cOrder = "SELECT t.*, u.* FROM topics t INNER JOIN users u 
+                $cOrder = "SELECT t.*, u.* FROM topic t INNER JOIN users u 
                            ON t.createdBy = u.userId
                            ORDER BY t.topicTitle;"; 
 
-                echo displayTopics($cOrder); //Function from dbHandler.php.
+                echo displaytopic($cOrder); //Function from dbHandler.php.
             
             } elseif($sort == "popularity"){ //If the user chooses popularity
 
                 //Order by topic with most entries
-                $pOrder = "SELECT t.*, u.*, COUNT(e.topicId) FROM topics t INNER JOIN users u 
+                $pOrder = "SELECT t.*, u.*, COUNT(e.topicId) FROM topic t INNER JOIN users u 
                            ON t.createdBy = u.Userid 
                            LEFT OUTER JOIN entries e ON t.topicId = e.topicId 
                            GROUP BY t.topicId ORDER BY COUNT(e.topicId) DESC;"; 
 
-                echo displayTopics($pOrder); //Function from dbHandler.php.
+                echo displaytopic($pOrder); //Function from dbHandler.php.
 
             } else { 
                 //If no sorting has been done, display this:
-                $query = "SELECT t.*, u.* FROM topics t INNER JOIN users u ON t.createdBy = u.userId;";
-                echo displayTopics($query);
+                $query = "SELECT t.*, u.* FROM topic t INNER JOIN users u ON t.createdBy = u.userId;";
+                echo displaytopic($query);
             }
             ?>
         </div>
@@ -110,14 +114,14 @@
             if(isset($_GET['topicId'])) {
                 $topicId = mysqli_real_escape_string($connection, $_GET['topicId']);
 
-                $sql = "SELECT e.*, t.*, u.* FROM entries e INNER JOIN topics t ON e.topicId = t.topicId 
+                $sql = "SELECT e.*, t.*, u.* FROM entries e INNER JOIN topic t ON e.topicId = t.topicId 
                         INNER JOIN users u ON e.createdBy = u.userId 
                         WHERE t.topicid = '$topicId' ORDER BY e.dateCreated DESC;"; 
 
                 echo displayEntries($sql); //Function from dbHandler.php
 
             } else {
-                echo "Choose a topic to the left to see the latest entries!";
+                echo "Choose a language to the left to see the latest entries!";
             }
             ?>
         </div>
@@ -126,10 +130,9 @@
 </div>
 
 
-<footer style="padding-top: 65px;">
+<footer style="padding-top: 400px;">
     <nav>
             <ul>
-                <li style="text-align: center; padding-right: 20px;">©2020-2021 NovGenT Dictionary </li>
                 <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
                 <li><a style="font-size: 22px;" href="guidelines.php">NovGenT's Guidelines</a></li>               
                 <li><a href="www.facebook.com" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
