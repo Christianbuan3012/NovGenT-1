@@ -9,6 +9,8 @@ include 'header.php'; ?>
         <form action="include/dbHandler.php" method="post" style="font-weight: 700;">
             <label for="username">Username:</label><br>
             <input type="text" name="username" id="username"><br><br>
+            <label for="pin">PIN (For Password Recovery):</label><br>
+            <input type="password" name="pin" id="pin"><br><br>
             <label for="password">Password:</label><br>
             <input type="password" name="password" id="password"><br><br>
             <label for="password2">Confirm Password:</label><br>
@@ -24,9 +26,11 @@ include 'header.php'; ?>
                 } elseif($_GET["error"] == "useralreadytaken") {
                     echo '<p class="errorMess">Username already exist. Please choose another one.</p>';
                 } elseif($_GET["error"] == "emptyfields") {
-                    echo '<p class="errorMess">Please fill in all three fields.</p>';
+                    echo '<p class="errorMess">Please fill in all the fields.</p>';
                 } elseif($_GET["error"] == "invalidusername") {
                     echo '<p class="errorMess">Your username can not contain special characters. Only use letters and numbers.</p>';
+                } elseif($_GET["error"] == "invalidpin") {
+                echo '<p class="errorMess">PIN should be minimum 5 characters and max 16 characters.</p>';
                 } elseif($_GET["error"] == "invalidpassword") {
                 echo '<p class="errorMess">Password should be minimum 8 characters and max 16 characters.</p>';
                 }
@@ -34,10 +38,9 @@ include 'header.php'; ?>
         ?>
 
     </div>
-<footer style="padding-top: 35px;">
+<footer style="padding-top: 400px;">
     <nav>
             <ul>
-                <li style="text-align: center; padding-right: 20px;">©2020-2021 NovGenT Dictionary </li>
                 <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
                 <li><a style="font-size: 22px;" href="guidelines.php">NovGenT's Guidelines</a></li>
                 <li><a href="www.facebook.com" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
