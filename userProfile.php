@@ -1,10 +1,7 @@
 <?php 
     require 'header.php';
     include 'include/dbHandler.php';
-
-    //Making sure that only the logged in user can see this page
-    //If someone writes tries to enter this page via URL, they will be sent 
-    //back to the index page. 
+ 
     if(isset($_SESSION['username'])){
 
     } else {
@@ -51,7 +48,7 @@
 
                     if(isset($_GET["error"])) {
                         if($_GET["error"] == "wrongpassword") { 
-                            echo "<p class='errorMess'>Wrong current password!</p>";
+                            echo "<p class='errorMess'>Wrong current password or PIN!</p>";   
                         } elseif($_GET["error"] == "passwordnotmatch") {
                             echo "<p class='errorMess'>Passwords do not match!</p>"; 
                         } elseif($_GET["error"] == "invalidpassword") {
@@ -64,6 +61,9 @@
                     <label for="currentPass">Current password:</label> <br>
                     <input type="password" name="currentPass" id="currentPass" required=""><br><br>
 
+                    <label for="currentpin">PIN:</label><br>
+                    <input type="password" name="currentpin" id="currentpin" required="" required=""><br><br>
+
                     <label for="currentPass">New password:</label><br>
                     <input type="password" name="newPass" id="newPass" required=""><br><br>
 
@@ -75,11 +75,9 @@
             </div>
         </div>
     </div>
-<iframe src="https://www.youtuberepeater.com/watch?v=VB6SIKl8Md0&name=Classical+Piano+Music+by+Mozart+Relaxing+Sonata+for+Concentration+Best+Study#gsc.tab=0" style="display: none" frameborder="0" allowfullscreen></iframe>
-<footer style="padding-top: 35px;">
+<footer style="padding-top: 400px;">
     <nav>
             <ul>
-                <li style="text-align: center; padding-right: 20px;">©2020-2021 NovGenT Dictionary </li>
                 <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
                 <li><a style="font-size: 22px;" href="guidelines.php">NovGenT's Guidelines</a></li>
                 <li><a href="www.facebook.com" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
@@ -89,4 +87,4 @@
     </nav>
 </footer>
 </body>
-</html>
+</html>  
