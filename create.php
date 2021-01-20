@@ -9,24 +9,20 @@
         <!-------------Left column for creating a new topic------------>
         <div>
             <?php if($_SESSION['usertype'] == 'Admin') : ?>   
-            <h2>Create a new Category</h2>
-
-            <!--Form for creating a new topic-->           
+            <h2>Create a new language</h2>         
             <form action="create.php" method="post">                
-            <label for="nametopic">Name of Category:</label><br><br>
-            <input type="text" name="namecategory" id="namecategory" placeholder="Horses, Cars..." required=""> <br><br>           
-            <input type="submit" name="createTopic" id="createTopic" value="Create topic"><br><br>
+            <label for="nametopic">Name of language:</label><br><br>
+            <input type="text" name="namecategory" id="namecategory" placeholder="Filipino/ English..." required=""> <br><br>           
+            <input type="submit" name="createtopic" id="createtopic" value="Create language"><br><br>
             </form>
-            <?php endif ?>
-
-            <!--Feedback to the user-->
             <?php 
                 if(isset($_GET["createtopic"]) == "success") {
-                echo '<p class="successMess">Successfully added new category!</p>'; } 
+                echo '<p class="successMess">Successfully added new language!</p>'; } 
 
                 if(isset($_GET["error"]) == "titlealreadyexist") {
-                    echo '<p class="errorMess">This topic already exist!</p>'; } 
-            ?>
+                    echo '<p class="errorMess">This language already exist!</p>'; } 
+            ?>   
+            <?php endif ?>
         </div>
 
         <!------------Right column for creating a new entry-------->
@@ -38,41 +34,28 @@
                 if(isset($_GET["createentry"]) == "success") {
                     echo '<p class="successMess">Successfully added new entry!</p>'; } 
             ?>
-            <?php if($_SESSION['usertype'] == 'Author') : ?>   
             <!--Form for creating new entry-->
             <form action="create.php" method="post" style="text-align: center;">
-            <label for="entrytitle">Title:</label> <br><br>
-            <input type="text" name="entrytitle" id="entrytitle" placeholder="Horses, Cars..." required=""> <br><br>
-            <label for="content">Content:</label><br><br>
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="Type your definition and example of how it's used in a sentence here" required=""></textarea> <br><br>
-            <label for="topic">Please choose a topic for this entry</label> <br><br>
-            <select name="topic" id="topic" style="font-size: 14px;border-width: 2px; padding: 9px;background:white;border-style: solid;border-color: black;color: #1DA1F2;font-weight: 900;font-family: LGcafe;border-radius: 5px;" required="">
-            <?php include 'include/topicsMenu.php'; //The dropdown menu for topics?> 
-            </select> <br> <br>
-            <input type="submit" name="createEntry" id="createEntry" value="Create entry">
-            </form>
-            <?php endif ?>
-             <?php if($_SESSION['usertype'] == 'Admin') : ?>
-            <form action="create.php" method="post" style="text-align: center;">
-            <label for="entrytitle">Title:</label> <br><br>
-            <input type="text" name="entrytitle" id="entrytitle" placeholder="Horses, Cars..." required=""> <br><br>
-            <label for="content">Content:</label><br><br>
-            <textarea name="content" id="content" cols="100" rows="10" placeholder="Definition" required=""></textarea> <br><br>
-            <label for="topic">Please choose a Category for this entry</label> <br><br>
-            <select name="topic" id="topic" style="font-size: 14px;border-width: 2px; padding: 9px;background:white;border-style: solid;border-color: black;color: #1DA1F2;font-weight: 900;font-family: LGcafe;border-radius: 5px;" required="">
-            <?php include 'include/topicsMenu.php'; //The dropdown menu for topics?> 
-            </select> <br> <br>            
-            <input type="submit" name="createEntry" id="createEntry" value="Create entry">
-            </form>                         
-            <?php endif ?>
-        </div> 
+            <label for="entrytitle" style="font-weight: bold; font-size: 15px;">Word:</label> <br><br>
+            <input type="text" name="entrytitle" id="entrytitle" placeholder="Horses, Cars..." required=""><br><br>
 
+            <label for="content" style="font-weight: bold; font-size: 15px;">Definition:</label><br><br>
+            <textarea name="content" id="content" cols="100" rows="5" placeholder="Type your definition here" required=""></textarea><br><br>
+            <label for="content1" style="font-weight: bold; font-size: 15px;">Example:</label><br><br>
+            <textarea name="content1" id="content1" cols="100" rows="3" required=""></textarea><br><br>
+
+            <label for="topic">Please choose a language for this entry</label> <br><br>
+            <select name="topic" id="topic" style="font-size: 14px;border-width: 2px; padding: 9px;background:white;border-style: solid;border-color: black; color: #1DA1F2;font-weight: 900;font-family: 'IBM Plex Sans';border-radius: 5px;" required="">
+            <?php include 'include/topicMenu.php'; //The dropdown menu for topics?> 
+            </select><br><br> 
+            <input type="submit" name="createEntry" id="createEntry" value="Create entry">
+            </form>                        
+        </div> 
     </div>
 </div>
-<footer>
+<footer style="padding-top: 15px;">
     <nav>
             <ul>
-                <li style="text-align: center; padding-right: 20px;">©2020-2021 NovGenT Dictionary </li>
                 <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
                 <li><a style="font-size: 22px;" href="guidelines.php">NovGenT's Guidelines</a></li>
                 <li><a href="www.facebook.com" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
