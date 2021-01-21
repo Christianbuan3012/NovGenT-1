@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     $hashedPin = password_hash($pin, PASSWORD_DEFAULT);
                      //Hashing the password
-                    mysqli_stmt_bind_param($statement, "sss", $pin, $username, $hashedPassword);
+                    mysqli_stmt_bind_param($statement, "sss", $hashedpin, $username, $hashedPassword);
                     mysqli_stmt_execute($statement);
                     header("Location: ../index.php?signup=success");
                     exit();
