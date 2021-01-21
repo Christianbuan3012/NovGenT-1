@@ -347,7 +347,7 @@ if(isset($_POST['changePass'])) {
                 } elseif (strlen($newPassword) < 5 || strlen($newPassword) > 16) { //Password must be <8 and >16
                     header("Location: userProfile.php?error=invalidpassword");
                     exit();
-                } elseif ($checkPassword == true && $checkPin == true) { //If the right password is typed in
+                } elseif ($checkPassword == true) { //If the right password is typed in
                     $sql = "UPDATE users SET password = ? WHERE userId = ?";
                     $newHashedPass = password_hash($newPassword, PASSWORD_DEFAULT); //Re-hash the new password
                     mysqli_stmt_prepare($statement, $sql); 
