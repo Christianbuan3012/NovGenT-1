@@ -35,7 +35,7 @@ function makeTables($connect) {
 
     //Create the one and only admin with hashed password, new users will by default be authors
     $adminPwd = password_hash('Admin123', PASSWORD_DEFAULT);
-    $adminPin = password_hash('2021', PASSWORD_DEFAULT)
+    $adminPin = password_hash('2021', PASSWORD_DEFAULT);
     $newAdmin = "INSERT INTO users(pin, username, password, type)
                 VALUES ('$adminPin', 'Admin','$adminPwd','Admin')";
     $connect->query($newAdmin);
