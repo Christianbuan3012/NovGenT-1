@@ -2,9 +2,9 @@
 
 //Define database variables
 define('DB_SERVER', 'remotemysql.com');
-define('DB_USERNAME', 'BtwLmu6tTk');
-define('DB_PASSWORD', 'QPxRh8dwnl');
-define('DB_NAME', 'BtwLmu6tTk');
+define('DB_USERNAME', 'YGjvSRRMm7');
+define('DB_PASSWORD', 'VLK9ZfZtYJ');
+define('DB_NAME', 'YGjvSRRMm7');
 
 // Create connection to localhost
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
