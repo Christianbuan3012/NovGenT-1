@@ -43,6 +43,11 @@ session_start();
                 <?php endif ?>
             </ul>
 
+            <form action="search.php" method="POST">
+                <input type="search" name="search" id="search" placeholder="Search" style="width: 400px;" required="">
+                <input type="submit" name="searchbutton" value="Search" style="width: 50px; padding-right: 100px;">
+            </form>
+
             <div class="signInOut">
                 <?php 
                 if(isset($_SESSION['username'])) {
