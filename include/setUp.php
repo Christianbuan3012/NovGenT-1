@@ -1,8 +1,8 @@
 <?php
 $server = 'remotemysql.com';
-$user = 'BtwLmu6tTk';
-$password = 'QPxRh8dwnl';
-$database = 'BtwLmu6tTk';
+$user = 'YGjvSRRMm7';
+$password = 'VLK9ZfZtYJ';
+$database = 'YGjvSRRMm7';
 
 // Create connection to localhost
 $connect = new mysqli($server, $user, $password);
@@ -35,8 +35,9 @@ function makeTables($connect) {
 
     //Create the one and only admin with hashed password, new users will by default be authors
     $adminPwd = password_hash('Admin123', PASSWORD_DEFAULT);
+    $adminPin = password_hash('2021', PASSWORD_DEFAULT)
     $newAdmin = "INSERT INTO users(pin, username, password, type)
-                VALUES ('2021', 'Admin','$adminPwd','Admin')";
+                VALUES ('$adminPin', 'Admin','$adminPwd','Admin')";
     $connect->query($newAdmin);
 
     //Create topics table
