@@ -340,7 +340,7 @@ if(isset($_POST['changePass'])) {
 
                 if($checkPassword == false || $checkPin == false) { //If it is not the same
                     header("Location: userProfile.php?error=wrongpassword");
-                    exit();{              
+                    exit();              
                 } elseif ($newPassword !== $confNewPassword) { //If confirmed password is not equal
                     header("Location: userProfile.php?error=passwordnotmatch");
                     exit();
