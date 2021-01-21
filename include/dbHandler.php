@@ -74,7 +74,9 @@ if (isset($_POST['submit'])) {
                     header("Location: ../newAccount.php?error=sqlerror");
                     exit();
                 } else { //If it works, pass the information with hashed password
-                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT); //Hashing the password
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $hashedPin = password_hash($pin, PASSWORD_DEFAULT)
+                     //Hashing the password
                     mysqli_stmt_bind_param($statement, "sss", $pin, $username, $hashedPassword);
                     mysqli_stmt_execute($statement);
                     header("Location: ../index.php?signup=success");
@@ -338,7 +340,7 @@ if(isset($_POST['changePass'])) {
             $checkPassword = password_verify($currentPass, $row['password']);
             $checkPin = password_verify($currentpin, $row['pin']); 
 
-                if($checkPassword == false) { //If it is not the same
+                if($checkPassword == false || $checkPin == false) { //If it is not the same
                     header("Location: userProfile.php?error=wrongpassword");
                     exit();              
                 } elseif ($newPassword !== $confNewPassword) { //If confirmed password is not equal
@@ -347,7 +349,7 @@ if(isset($_POST['changePass'])) {
                 } elseif (strlen($newPassword) < 5 || strlen($newPassword) > 16) { //Password must be <8 and >16
                     header("Location: userProfile.php?error=invalidpassword");
                     exit();
-                } elseif ($checkPassword == true) { //If the right password is typed in
+                } elseif ($checkPassword == true && $checkPin == true) { //If the right password is typed in
                     $sql = "UPDATE users SET password = ? WHERE userId = ?";
                     $newHashedPass = password_hash($newPassword, PASSWORD_DEFAULT); //Re-hash the new password
                     mysqli_stmt_prepare($statement, $sql); 
