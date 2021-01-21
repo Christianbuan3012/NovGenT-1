@@ -2,7 +2,6 @@
     include_once 'include/setUp.php';
     include 'include/connect.php';
     include 'include/dbHandler.php';
-    include 'search.php';
     require 'header.php'
 ?>
 <div class="mainbox">
@@ -33,15 +32,10 @@
                 }
             }
         ?>
-        <form action="search.php" method="POST">
-            <input type="search" name="search" id="search" placeholder="Search" style="width: 400px;" required="">
-            <input type="submit" name="searchbutton" value="Search" style="width: 50px; padding-right: 100px;">
-        </form>
         <p>Click on any language below to see all its Word Entries. 
         <?php if(!isset($_SESSION['username'])) : ?>
         Log in, or sign up now to create your own!</p>
         <?php endif ?>
-
     </div>
 
     <!-----------------Left column displaying all topics:------------------------->
