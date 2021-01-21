@@ -338,13 +338,13 @@ if(isset($_POST['changePass'])) {
             $checkPassword = password_verify($currentPass, $row['password']);
             $checkPin = password_verify($currentpin, $row['pin']); 
 
-                if($checkPassword == false && $checkPin == false) { //If it is not the same
+                if($checkPassword == false || $checkPin == false) { //If it is not the same
                     header("Location: userProfile.php?error=wrongpassword");
-                    exit();              
+                    exit();{              
                 } elseif ($newPassword !== $confNewPassword) { //If confirmed password is not equal
                     header("Location: userProfile.php?error=passwordnotmatch");
                     exit();
-                } elseif (strlen($newPassword) < 8 || strlen($newPassword) > 16) { //Password must be <8 and >16
+                } elseif (strlen($newPassword) < 5 || strlen($newPassword) > 16) { //Password must be <8 and >16
                     header("Location: userProfile.php?error=invalidpassword");
                     exit();
                 } elseif ($checkPassword == true && $checkPin == true) { //If the right password is typed in
