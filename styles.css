@@ -145,13 +145,13 @@ h3 a {
 input[name="namelanguage"] {
     width: 300px;
 }
-input[name="deleteEntry1"], input[name="deletetopic"], input[name="deleteEntry"], input[name="deletetitle"], input[name="deleteUser"] {
+input[name="deleteEntry1"], input[name="deletetopic"], input[name="deleteEntry"], input[name="deletetitle"], input[name="deleteUser"],input[name="logout]{
     background-color: firebrick;
     color: white;
     padding: 10px;
     border:none;
 }
-input[name="createEntry"], input[name="changeUsername"], input[name="changePass"], input[name="createtopic"], input[name="logout"]{
+input[name="createEntry"], input[name="changeUsername"], input[name="changePass"], input[name="createtopic"], input[name="login"]{
     background-color: #03C04A;
     color: white;
     padding: 10px;
