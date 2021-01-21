@@ -2,6 +2,7 @@
     include_once 'include/setUp.php';
     include 'include/connect.php';
     include 'include/dbHandler.php';
+    include 'search.php';
     require 'header.php'
 ?>
 <div class="mainbox">
