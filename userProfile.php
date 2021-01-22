@@ -48,11 +48,11 @@
 
                     if(isset($_GET["error"])) {
                         if($_GET["error"] == "wrongpassword") { 
-                            echo "<p class='errorMess'>Wrong current password or PIN!</p>";   
+                            echo "<p class='errorMess'>Wrong current password or PIN!</p>"; 
                         } elseif($_GET["error"] == "passwordnotmatch") {
                             echo "<p class='errorMess'>Passwords do not match!</p>"; 
                         } elseif($_GET["error"] == "invalidpassword") {
-                            echo "<p class='errorMess'>Password must be minimum 8 and max 16 characters!</p>"; }
+                            echo "<p class='errorMess'>Password must be minimum 8 and max 16 characters!</p>";}
                     }
                 ?>
 
