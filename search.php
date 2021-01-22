@@ -4,9 +4,7 @@
 ?>
     <div class="mainbox">
         <h2>Search results</h2>
-<?php 
-
-$button = $_GET['searchbutton'];
+        <?php 
 $search = $_GET['search'];
 $con = mysqli_connect("remotemysql.com", "VzW7WZ8LJO", "XjJpXHTDZA", "VzW7WZ8LJO");
     $sql = "SELECT * FROM entries WHERE MATCH(entryTitle, description) AGAINST ('%" .$search. "%')";
