@@ -17,9 +17,9 @@ $con = mysqli_connect("remotemysql.com", "VzW7WZ8LJO", "XjJpXHTDZA", "VzW7WZ8LJO
         $sql  = "SELECT * FROM entries WHERE MATCH(entryTitle, description) AGAINST ('%" .$search. "%')";
         $getquery = mysqli_query($con, $sql);
         while ($runrows = mysqli_fetch_array($getquery)) {
-            echo '<h3> Language: ' . $list["topicTitle"] . '</h3>' . 
-                 '<h4>' . $list["entryTitle"] . '</h4>' . 
-                 '<p>' . $list["description"] . '</p><hr>';
+            echo '<h3> Language: ' . $runrow["topicTitle"] . '</h3>' . 
+                 '<h4>' . $runrows["entryTitle"] . '</h4>' . 
+                 '<p>' . $runrows["description"] . '</p><hr>';
         }
     }
 ?>
