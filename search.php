@@ -5,6 +5,12 @@
     <div class="mainbox">
         <h2>Search results</h2>
         <?php 
+    require 'header.php';
+    include 'include/connect.php'; 
+?>
+    <div class="mainbox">
+        <h2>Search results</h2>
+        <?php 
 $search = $_GET['search'];
 $con = mysqli_connect("remotemysql.com", "VzW7WZ8LJO", "XjJpXHTDZA", "VzW7WZ8LJO");
     $sql = "SELECT * FROM entries WHERE MATCH(entryTitle, description) AGAINST ('%" .$search. "%')";
@@ -17,12 +23,15 @@ $con = mysqli_connect("remotemysql.com", "VzW7WZ8LJO", "XjJpXHTDZA", "VzW7WZ8LJO
         $sql  = "SELECT * FROM entries WHERE MATCH(entryTitle, description) AGAINST ('%" .$search. "%')";
         $getquery = mysqli_query($con, $sql);
         while ($runrows = mysqli_fetch_array($getquery)) {
-            echo '<h3> Language: ' . $runrow["topicTitle"] . '</h3>' . 
+            echo '<h3> Language: ' . $runrows["topicTitle"] . '</h3>' . 
                  '<h4>' . $runrows["entryTitle"] . '</h4>' . 
                  '<p>' . $runrows["description"] . '</p><hr>';
         }
     }
 ?>
+    </div> 
+</body>
+</html>
     </div> 
 </body>
 </html>
