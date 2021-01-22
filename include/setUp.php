@@ -2,7 +2,7 @@
 $server = 'remotemysql.com';
 $user = 'VzW7WZ8LJO';
 $password = 'XjJpXHTDZA';
-$database = 'VzW7WZ8LJO';
+$database = 'VzW7WZ8LJOXjJpXHTDZA';
 
 // Create connection to localhost
 $connect = new mysqli($server, $user, $password);
@@ -41,7 +41,7 @@ function makeTables($connect) {
     $connect->query($newAdmin);
 
     //Create topics table
-    $topicTable = "CREATE TABLE IF NOT EXISTS topic (
+    $topicTable = "CREATE TABLE IF NOT EXISTS topics (
         topicId INT NOT NULL AUTO_INCREMENT,
         topicTitle VARCHAR (255) NOT NULL,
         createdBy INT NOT NULL,
@@ -50,15 +50,15 @@ function makeTables($connect) {
         );";
     $connect->query($topicTable);
     //Insert dummy topic data only for viewing purposes, created by "admin"
-    $topicEntry = "INSERT INTO topic(topicTitle, createdBy) VALUES ('English', 1)";
+    $topicEntry = "INSERT INTO topics(topicTitle, createdBy) VALUES ('English', 1)";
     $connect->query($topicEntry);
-    $topicEntry = "INSERT INTO topic(topicTitle, createdBy) VALUES ('Filipino', 1)";
+    $topicEntry = "INSERT INTO topics(topicTitle, createdBy) VALUES ('Filipino', 1)";
     $connect->query($topicEntry);
-    $topicEntry = "INSERT INTO topic(topicTitle, createdBy) VALUES ('Spanish', 1)";
+    $topicEntry = "INSERT INTO topics(topicTitle, createdBy) VALUES ('Spanish', 1)";
     $connect->query($topicEntry);
 
     //Add index to the topic table, as this will be frequently searched
-    $indextopic = "ALTER TABLE topic ADD FULLTEXT (topicTitle);";
+    $indextopic = "ALTER TABLE topics ADD FULLTEXT (topicTitle);";
     $connect->query($indextopic);
 
 
@@ -74,7 +74,7 @@ function makeTables($connect) {
         topicId INT NOT NULL,
         CONSTRAINT primaryKey_entries PRIMARY KEY (entryId),
         CONSTRAINT foreignKey_users FOREIGN KEY (createdBy) REFERENCES users(userId) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT foreignKey_topics FOREIGN KEY (topicId) REFERENCES topic(topicId) ON UPDATE CASCADE ON DELETE CASCADE
+        CONSTRAINT foreignKey_topics FOREIGN KEY (topicId) REFERENCES topics(topicId) ON UPDATE CASCADE ON DELETE CASCADE
         );";
     $connect->query($entryTable);
 
