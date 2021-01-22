@@ -44,7 +44,7 @@ session_start();
             </ul>
 
             <form action="search.php" method="POST">
-                <input type="search" name="search" id="search" placeholder="Search..." required="" oninvalid="this.setCustomValidity('Please enter a word.')" style="width: 400px;">
+                <input type="search" name="search" id="search" placeholder="Search..." style="width: 400px;">
                 <input type="submit" name="searchbutton" value="Search" style="width: 50px; padding-right: 100px;">
 
             <div class="signInOut">
