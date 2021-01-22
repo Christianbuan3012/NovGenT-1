@@ -75,7 +75,7 @@
             if($sort == "chronological"){ //If the user chooses chronological
                     
                 //Order by the topic title
-                $cOrder = "SELECT t.*, u.* FROM topic t INNER JOIN users u 
+                $cOrder = "SELECT t.*, u.* FROM topics t INNER JOIN users u 
                            ON t.createdBy = u.userId
                            ORDER BY t.topicTitle;"; 
 
@@ -84,7 +84,7 @@
             } elseif($sort == "popularity"){ //If the user chooses popularity
 
                 //Order by topic with most entries
-                $pOrder = "SELECT t.*, u.*, COUNT(e.topicId) FROM topic t INNER JOIN users u 
+                $pOrder = "SELECT t.*, u.*, COUNT(e.topicId) FROM topics t INNER JOIN users u 
                            ON t.createdBy = u.Userid 
                            LEFT OUTER JOIN entries e ON t.topicId = e.topicId 
                            GROUP BY t.topicId ORDER BY COUNT(e.topicId) DESC;"; 
@@ -93,7 +93,7 @@
 
             } else { 
                 //If no sorting has been done, display this:
-                $query = "SELECT t.*, u.* FROM topic t INNER JOIN users u ON t.createdBy = u.userId;";
+                $query = "SELECT t.*, u.* FROM topics t INNER JOIN users u ON t.createdBy = u.userId;";
                 echo displaytopic($query);
             }
             ?>
@@ -109,7 +109,7 @@
             if(isset($_GET['topicId'])) {
                 $topicId = mysqli_real_escape_string($connection, $_GET['topicId']);
 
-                $sql = "SELECT e.*, t.*, u.* FROM entries e INNER JOIN topic t ON e.topicId = t.topicId 
+                $sql = "SELECT e.*, t.*, u.* FROM entries e INNER JOIN topics t ON e.topicId = t.topicId 
                         INNER JOIN users u ON e.createdBy = u.userId 
                         WHERE t.topicid = '$topicId' ORDER BY e.dateCreated DESC;"; 
 
@@ -125,7 +125,7 @@
 </div>
 
 
-<footer style="padding-top: 400px;">
+<footer style="padding-top: 20px;">
     <nav>
             <ul>
                 <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
