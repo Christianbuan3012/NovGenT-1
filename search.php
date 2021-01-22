@@ -6,7 +6,7 @@
         <h2>Search results</h2>
         <?php 
             if(isset($_POST['searchbutton'])) {
-                $query = $_GET['search']; 
+                $query = mysqli_real_escape_string($connection, $_POST['search']);                 
                 // gets value sent over search form
                 
                 $min_length = 1;
