@@ -9,7 +9,7 @@
                 //Check that the user did not write code etc in the search field, and get the input
                 $searchInput = mysqli_real_escape_string($connection, $_POST['search']); 
 
-                $sql = "SELECT t.*, e.* FROM topic t LEFT OUTER JOIN entries e ON t.topicId
+                $sql = "SELECT t.*, e.* FROM topics t LEFT OUTER JOIN entries e ON t.topicId
                      = e.topicId 
                 WHERE MATCH(t.topicTitle) AGAINST('*$searchInput*' IN BOOLEAN MODE) OR
                 MATCH(e.entryTitle, e.description) AGAINST('*$searchInput*' IN BOOLEAN MODE);"; 
