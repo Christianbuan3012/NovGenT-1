@@ -20,7 +20,7 @@
                     $query = mysql_real_escape_string($query);
                     // makes sure nobody uses SQL injection
                     $raw_results = mysql_query("SELECT * FROM entries
-                        WHERE (`entryTitle` LIKE '%".$query."%') OR (`topicTitle` LIKE '%".$query."%')") or die(mysql_error());
+                        WHERE (`entryTitle` LIKE '%".$query."%')") or die(mysql_error());
                     // '%$query%' is what we're looking for, % means anything, for example if $query is Hello
                     // it will match "hello", "Hello man", "gogohello", if you want exact match use `title`='$query'
                     // or if you want to match just full word so "gogohello" is out use '% $query %' ...OR ... '$query %' ... OR ... '% $query'
