@@ -43,9 +43,9 @@ session_start();
                 <?php endif ?>
             </ul>
 
-            <form action="search.php" method="POST" class="search">
-                <input type="search" name="search" id="search" placeholder="Search..." style="width: 400px; padding-top: 20px;">
-                <input type="submit" name="searchbutton" value="Search" style="width: 50px; padding-right: 100px; padding-top: 20px;">
+            <form action="search.php" method="POST" class="search" style="padding-top: 20px;">
+                <input type="search" name="search" id="search" placeholder="Search..." style="width: 400px;">
+                <input type="submit" name="searchbutton" value="Search" style="width: 50px; padding-right: 100px;">
             </form>
 
             <div class="signInOut">
