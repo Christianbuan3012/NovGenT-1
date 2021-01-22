@@ -5,12 +5,6 @@
     <div class="mainbox">
         <h2>Search results</h2>
         <?php 
-    require 'header.php';
-    include 'include/connect.php'; 
-?>
-    <div class="mainbox">
-        <h2>Search results</h2>
-        <?php 
 $search = $_GET['search'];
 $con = mysqli_connect("remotemysql.com", "VzW7WZ8LJO", "XjJpXHTDZA", "VzW7WZ8LJO");
     $sql = "SELECT * FROM entries WHERE MATCH(entryTitle, description) AGAINST ('%" .$search. "%')";
@@ -29,9 +23,6 @@ $con = mysqli_connect("remotemysql.com", "VzW7WZ8LJO", "XjJpXHTDZA", "VzW7WZ8LJO
         }
     }
 ?>
-    </div> 
-</body>
-</html>
     </div> 
 </body>
 </html>
