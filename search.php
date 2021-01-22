@@ -1,59 +1,71 @@
 <?php 
-    require 'header.php';
-    include 'include/connect.php'; 
+session_start();
 ?>
-    <div class="mainbox">
-        <h2>Search results</h2>
-        <?php 
-            if(isset($_POST['searchbutton'])) {
-                $query = mysqli_real_escape_string($connection, $_POST['search']);                 
-                // gets value sent over search form
-                
-                $min_length = 1;
-                // you can set minimum length of the query if you want
-                
-                if(strlen($query) >= $min_length){ // if query length is more or equal minimum length then
-                    
-                    $query = htmlspecialchars($query); 
-                    // changes characters used in html to their equivalents, for example: < to &gt;
-                    
-                    $query = mysql_real_escape_string($query);
-                    // makes sure nobody uses SQL injection
-                    $raw_results = mysql_query("SELECT * FROM entries
-                        WHERE (`entryTitle` LIKE '%".$query."%')") or die(mysql_error());
-                    // '%$query%' is what we're looking for, % means anything, for example if $query is Hello
-                    // it will match "hello", "Hello man", "gogohello", if you want exact match use `title`='$query'
-                    // or if you want to match just full word so "gogohello" is out use '% $query %' ...OR ... '$query %' ... OR ... '% $query'
-                    if(mysql_num_rows($raw_results) > 0){ // if one or more rows are returned do following   
-                        echo '<p>There are ' . $raw_result . ' results from your search on "' . $query . '":</p>'
-                        while($results = mysql_fetch_array($raw_results)){
-                        // $results = mysql_fetch_array($raw_results) puts data from database into array, while it's valid it does the loop
-                            echo '<h3> Language: ' . $list["topicTitle"] . '</h3>' . 
-                        '<h4>' . $list["entryTitle"] . '</h4>' . 
-                        '<p>' . $list["description"] . '</p><hr>';
-                            // posts results gotten from database(title and text) you can also show id ($results['id'])
-                        }
-                    }
-                    else{ // if there is no matching rows do following
-                        echo "No results";
-                    }
-                }
-                else{ // if query length is less than minimum
-                    echo "Minimum length is ".$min_length;
-                }
-            }
-        ?>
-    </div> 
-<footer>
-    <nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovGenT Online Dictionary</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript">
+    window.addEventListener("load", function () {
+    const loader = document.querySelector(".loader");
+    loader.className += " hidden";
+    });
+</script>
+</head>
+<body>
+    <div class="loader">
+        <img src="loading.gif" alt="Loading..." />
+    </div>
+    <header>
+        <nav>
             <ul>
-                <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
-                <li><a style="font-size: 22px;" href="guidelines.php">NovGenT's Guidelines</a></li>
-                <li><a href="www.facebook.com" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
-                <li><a href="www.twitter.com"  style="font-weight: 700; font-size: 20px;">Twitter</a></li>
+                <li><a style="font-size: 25px; font-weight: 900;" href="index.php">NovGenT</a></li>
+                <li><a href="index.php">Home</a></li>
+                <?php if(!isset($_SESSION['username'])) : ?>
+                    <li><a href="newAccount.php">Sign up</a></li>
+                <?php endif ?>
+
+                <?php if(isset($_SESSION['username'])) : ?>                                      
+                    <li><a href="userProfile.php">Account Settings</a></li>
+                    <li><a href="create.php">Create an Entry</a></li>
+                <?php endif ?>
+
+                <?php if(isset($_SESSION['usertype'])) : ?>
+                    <?php if($_SESSION['usertype'] == 'Admin') : ?>
+                    <li><a href="userList.php">Manage Users</a></li>
+                    <li><a href="entryList.php">Manage Entries</a></li>                  
+                    <?php endif ?>
+                <?php endif ?>
             </ul>
 
-    </nav>
-</footer>
-</body>
-</html>
+            <form action="search.php" method="POST" style="padding-top: 20px;">
+                <input type="search" name="search" id="search" placeholder="Search..." style="width: 400px;">
+                <input type="submit" name="searchbutton" value="Search" style="width: 50px; padding-right: 100px;">
+            </form>
+
+            <div class="signInOut">
+                <?php 
+                if(isset($_SESSION['username'])) {
+                    $username = $_SESSION['username'];
+                    echo "
+                    <form action='include/dbHandler.php' method='post'>
+                    <input type='submit' name='logout' id='logout' value='Log out'>
+                    </form>";
+                } else {
+                    echo '<form action="include/dbHandler.php" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" required="">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" required="">
+                    <input type="submit" name="login" id="submit" value="Log in">
+                    </form>';
+                }
+                ?>
+            </div>
+        </nav>
+    </header>
