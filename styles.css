@@ -91,7 +91,7 @@ li a {
     color: white;
     font-size: 20px;
 }
-.signInOut {
+.signInOut, .search {
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
@@ -142,7 +142,7 @@ h3 a {
 
 
 /*Etc around the pages:*/
-input[name="namelanguage"] {
+input[name="nametopic"] {
     width: 300px;
 }
 input[name="deleteEntry1"], input[name="deletetopic"], input[name="deleteEntry"], input[name="deletetitle"], input[name="deleteUser"], input[name="logout"]{
@@ -157,6 +157,7 @@ input[name="createEntry"], input[name="changeUsername"], input[name="changePass"
     padding: 10px;
     border:none;    
 }
+
 input {
     padding: 10px;
     background:white;
@@ -172,7 +173,7 @@ textarea{
     background:white;
     border-style: solid;
     border-color: black;
-    color: #1DA1F2;
+    color: black;
     font-weight: 900;
     font-family: 'IBM Plex Sans';
     border-radius: 5px;
