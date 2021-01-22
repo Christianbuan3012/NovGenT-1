@@ -6,22 +6,40 @@
         <h2>Search results</h2>
         <?php 
             if(isset($_POST['searchbutton'])) {
-                //Check that the user did not write code etc in the search field, and get the input
-                $searchInput = mysqli_real_escape_string($connection, $_POST['search']); 
-                $sql = "SELECT t.*, e.* FROM topics t LEFT OUTER JOIN entries e ON t.topicId = e.topicId 
-                WHERE MATCH(t.topicTitle) AGAINST('*$searchInput*' IN BOOLEAN MODE) OR
-                MATCH(e.entryTitle) AGAINST('*$searchInput*' IN BOOLEAN MODE);"; 
-                $searchResult = mysqli_query($connection, $sql); 
-                $finalResult = mysqli_num_rows($searchResult); //Checking if we have any result from $searchResult
-                if($finalResult > 0) { //If there are more than 0 results
-                    echo '<p>There are ' . $finalResult . ' results from your search on "' . $searchInput . '":</p>';
-                    while($list = mysqli_fetch_assoc($searchResult)) { //Display the results
-                        echo '<h3> Language: ' . $list["topicTitle"] . '</h3>' . 
+                $query = $_GET['search']; 
+                // gets value sent over search form
+                
+                $min_length = 1;
+                // you can set minimum length of the query if you want
+                
+                if(strlen($query) >= $min_length){ // if query length is more or equal minimum length then
+                    
+                    $query = htmlspecialchars($query); 
+                    // changes characters used in html to their equivalents, for example: < to &gt;
+                    
+                    $query = mysql_real_escape_string($query);
+                    // makes sure nobody uses SQL injection
+                    $raw_results = mysql_query("SELECT * FROM entries
+                        WHERE (`entryTitle` LIKE '%".$query."%') OR (`topicTitle` LIKE '%".$query."%')") or die(mysql_error());
+                    // '%$query%' is what we're looking for, % means anything, for example if $query is Hello
+                    // it will match "hello", "Hello man", "gogohello", if you want exact match use `title`='$query'
+                    // or if you want to match just full word so "gogohello" is out use '% $query %' ...OR ... '$query %' ... OR ... '% $query'
+                    if(mysql_num_rows($raw_results) > 0){ // if one or more rows are returned do following   
+                        echo '<p>There are ' . $raw_result . ' results from your search on "' . $query . '":</p>'
+                        while($results = mysql_fetch_array($raw_results)){
+                        // $results = mysql_fetch_array($raw_results) puts data from database into array, while it's valid it does the loop
+                            echo '<h3> Language: ' . $list["topicTitle"] . '</h3>' . 
                         '<h4>' . $list["entryTitle"] . '</h4>' . 
                         '<p>' . $list["description"] . '</p><hr>';
+                            // posts results gotten from database(title and text) you can also show id ($results['id'])
+                        }
                     }
-                } else { //If there are 0 results
-                    echo '<p>There are 0 results your search on: "' . $searchInput . '"!</p>';
+                    else{ // if there is no matching rows do following
+                        echo "No results";
+                    }
+                }
+                else{ // if query length is less than minimum
+                    echo "Minimum length is ".$min_length;
                 }
             }
         ?>
