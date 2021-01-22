@@ -8,7 +8,6 @@
             if(isset($_POST['searchbutton'])) {
                 //Check that the user did not write code etc in the search field, and get the input
                 $searchInput = mysqli_real_escape_string($connection, $_POST['search']); 
-
                 $sql = "SELECT t.*, e.* FROM topics t LEFT OUTER JOIN entries e ON t.topicId = e.topicId 
                 WHERE MATCH(t.topicTitle) AGAINST('*$searchInput*' IN BOOLEAN MODE) OR
                 MATCH(e.entryTitle, e.description) AGAINST('*$searchInput*' IN BOOLEAN MODE);"; 
@@ -17,7 +16,7 @@
                 if($finalResult > 0) { //If there are more than 0 results
                     echo '<p>There are ' . $finalResult . ' results from your search on "' . $searchInput . '":</p>';
                     while($list = mysqli_fetch_assoc($searchResult)) { //Display the results
-                        echo '<h3> Language: ' . $list["topicTitle"] . '</h3>' . 
+                        echo '<h3> topic: ' . $list["topicTitle"] . '</h3>' . 
                         '<h4>' . $list["entryTitle"] . '</h4>' . 
                         '<p>' . $list["description"] . '</p><hr>';
                     }
