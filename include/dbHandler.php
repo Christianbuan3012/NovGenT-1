@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     $hashedPin = password_hash($pin, PASSWORD_DEFAULT);
                      //Hashing the password
-                    mysqli_stmt_bind_param($statement, "sss", $hashedPin, $username, $hashedPassword);
+                    mysqli_stmt_bind_param($statement, "sss", $hashedpin, $username, $hashedPassword);
                     mysqli_stmt_execute($statement);
                     header("Location: ../index.php?signup=success");
                     exit();
@@ -184,7 +184,7 @@ if (isset($_POST['createtopic'])) {
 
     $title = inputSanitize("namecategory", $connection);
     $userId = $_SESSION['userId'];
-    $sql = "SELECT topicTitle FROM topic WHERE topicTitle=?";
+    $sql = "SELECT topicTitle FROM topics WHERE topicTitle=?";
 
     $statement = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($statement, $sql)) { //If it does not work
@@ -200,7 +200,7 @@ if (isset($_POST['createtopic'])) {
             header("Location: create.php?error=titlealreadyexist"); //Display error in the url
             exit();
         } else { //If the title does not exist in the db
-            $sql = "INSERT INTO topic (topicTitle, createdBy) VALUES (?,?)"; //Passing placeholders
+            $sql = "INSERT INTO topics (topicTitle, createdBy) VALUES (?,?)"; //Passing placeholders
             mysqli_stmt_prepare($statement, $sql);
             mysqli_stmt_bind_param($statement, "si", $title, $userId);
             mysqli_stmt_execute($statement);
@@ -246,7 +246,7 @@ if(isset($_SESSION['username'])) {
 
 //_______________. TOPIC___________________________________________________from index.php
 if(isset($_POST['deletetopic'])) {
-    $sql = "DELETE FROM topic WHERE topicId=" . $_REQUEST['topicId'];
+    $sql = "DELETE FROM topics WHERE topicId=" . $_REQUEST['topicId'];
     $connection->query($sql);
     header("Location: index.php?deltopic=success");
     exit();  
