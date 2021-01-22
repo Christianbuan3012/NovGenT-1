@@ -4,7 +4,7 @@
 ?>
     <div class="mainbox">
         <h2>Search results</h2>
-        <?php 
+<?php 
 
 $button = $_GET['searchbutton'];
 $search = $_GET['search'];
@@ -15,7 +15,7 @@ $con = mysqli_connect("remotemysql.com", "VzW7WZ8LJO", "XjJpXHTDZA", "VzW7WZ8LJO
     if ($foundnum == 0){
         echo "There are 0 results from your search on ' . $search . ':";
     } else {
-        echo "There are $foundnum results from your search on \"' . $search . '\":";
+        echo "There are $foundnum results from your search on ' . $search . ':";
         $sql  = "SELECT * FROM entries WHERE MATCH(entryTitle, description) AGAINST ('%" .$search. "%')";
         $getquery = mysqli_query($con, $sql);
         while ($runrows = mysqli_fetch_array($getquery)) {
