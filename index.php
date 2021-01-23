@@ -36,12 +36,13 @@
         <?php if(!isset($_SESSION['username'])) : ?>
         Log in, or sign up now to create your own!</p>
         <?php endif ?>
+        <hr>
     </div>
 
     <!-----------------Left column displaying all topics:------------------------->
     <div class="displaycontents">
         <div>
-            <h2>Languages</h2>
+            <h2>Categories</h2>
 
             <?php
                 if(isset($_SESSION['usertype'])){
@@ -130,7 +131,7 @@
             <ul>
                 <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
                 <li><a style="font-size: 22px;" href="guidelines.php">NovGenT's Guidelines</a></li>               
-                <li><a href="https://www.facebook.com/kitsune.christian.12/" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
+                <li><a href="www.facebook.com" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
                 <li><a href="www.twitter.com"  style="font-weight: 700; font-size: 20px;">Twitter</a></li>
             </ul>
 
