@@ -36,7 +36,7 @@
         <?php if(!isset($_SESSION['username'])) : ?>
         Log in, or sign up now to create your own!</p>
         <?php endif ?>
-        <hr>
+        <hr style="height: 5px;">
     </div>
 
     <!-----------------Left column displaying all topics:------------------------->
