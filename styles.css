@@ -158,6 +158,10 @@ input[name="createEntry"], input[name="changeUsername"], input[name="changePass"
     border:none;    
 }
 
+input[name="login"]{
+    border-color: black solid;
+}
+
 input {
     padding: 10px;
     background:white;
