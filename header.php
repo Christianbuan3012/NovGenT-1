@@ -45,7 +45,7 @@ session_start();
 
             <form action="search.php" method="POST" style="padding-top: 13px;">
                 <input type="search" name="search" id="search" placeholder="Search..." style="width: 400px;">
-                <input type="submit" name="searchbutton" value="Search" style="padding-right: 100px; text-align: center; width: 10px;">
+                <input type="submit" name="searchbutton" value="Search" style="padding-right: 100px; width: 10px;">
             </form>
 
             <div class="signInOut">
@@ -58,10 +58,8 @@ session_start();
                     </form>";
                 } else {
                     echo '<form action="include/dbHandler.php" method="post">
-                    <label for="username">Username:</label>
-                    <input type="text" name="username" id="username" required="">
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" required="">
+                    <input type="text" name="username" id="username" value="Username" required="">
+                    <input type="password" name="password" id="password" value="Password" required="">
                     <input type="submit" name="login" id="submit" value="Log in">
                     </form>';
                 }
