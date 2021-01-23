@@ -45,7 +45,7 @@ session_start();
 
             <form action="search.php" method="POST" style="padding-top: 13px;">
                 <input type="search" name="search" id="search" placeholder="Search..." style="width: 400px;">
-                <input type="submit" name="searchbutton" value="Search" style="width: 10px; padding-right: 100px;">
+                <input type="submit" name="searchbutton" value="Search" style="padding-right: 100px; text-align: center;">
             </form>
 
             <div class="signInOut">
