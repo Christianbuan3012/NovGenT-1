@@ -41,7 +41,7 @@
     <!-----------------Left column displaying all topics:------------------------->
     <div class="displaycontents">
         <div>
-            <h2>Categories</h2>
+            <h2>Languages</h2>
 
             <?php
                 if(isset($_SESSION['usertype'])){
@@ -62,7 +62,7 @@
             <!--Form for sorting the topics-->
             <form action="index.php" method="get">
             <select name="sortingOption" id="sortingOption" style="font-size: 14px;border-width: 2px; padding: 9px;background:white;border-style: solid;border-color: black;color: #1DA1F2;font-weight: 900;font-family: 'IBM Plex Sans';border-radius: 5px;">
-            <option value="chronological" <?php if($sort == "chronological"){echo "selected";}?>>By Chronologically</option>
+            <option value="chronological" <?php if($sort == "chronological"){echo "selected";}?>>By Alphabetically</option>
             <option value="popularity" <?php if($sort == "popularity"){echo "selected";}?>>By popularity</option></select> 
             <input type="submit" name="sorttopic" value="Sort language" id="kwan">
             </form>
