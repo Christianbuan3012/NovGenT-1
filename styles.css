@@ -154,8 +154,7 @@ input[name="deleteEntry1"], input[name="deletetopic"], input[name="deleteEntry"]
 input[name="createEntry"], input[name="changeUsername"], input[name="changePass"], input[name="createtopic"], input[name="login"]{
     background-color: #03C04A;
     color: white;
-    padding: 10px;
-    border:none;    
+    padding: 10px;    
 }
 
 input[name="login"]{
