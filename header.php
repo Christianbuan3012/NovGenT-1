@@ -58,8 +58,10 @@ session_start();
                     </form>";
                 } else {
                     echo '<form action="include/dbHandler.php" method="post">
-                    <input type="text" name="username" id="username" value="Username" required="">
-                    <input type="password" name="password" id="password" value="Password" required="">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" required="">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" required="">
                     <input type="submit" name="login" id="submit" value="Log in">
                     </form>';
                 }
