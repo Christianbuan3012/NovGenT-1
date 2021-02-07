@@ -44,8 +44,8 @@ session_start();
             </ul>
 
             <form action="search.php" method="POST" style="padding-top: 13px;">
-                <input type="search" name="search" id="search" placeholder="Search..." style="width: 400px;">
-                <input type="submit" name="searchbutton" value="Search" style="padding-right: 100px; width: 10px;">
+                <input type="search" name="search" id="search" placeholder="SEARCH BAR IS STILL IN DEVELOPMENT" style="width: 300px;">
+                <input type="submit" name="searchbutton" value="Search" style="padding-right: 50px; background: #9AB5C1;color: White; width: 10px;">
             </form>
 
             <div class="signInOut">
@@ -63,6 +63,7 @@ session_start();
                     <label for="password">Password:</label>
                     <input type="password" name="password" id="password" required="">
                     <input type="submit" name="login" id="submit" value="Log in">
+                    <input type="submit" name="forget" id="forget" value="Forget Password?" action="forgetpass.php">
                     </form>';
                 }
                 ?>
