@@ -134,6 +134,7 @@
         <p style="color: firebrick;"><b><i>ERROR NOTES:</i></b></p>
         <p style="color: firebrick;"><i>SEARCH BAR FUNCTION ERROR</i></p>
         <p style="color: firebrick;"><i>FORGET PASSWORD FUNCTION ERROR</i></p>
+        <br>
         <p style="color: #03C04A;"><b><i>DEVELOPMENT NOTES:</i></b></p>
         <p style="color: #03C04A;"><b><i>TEXT-TO-SPEECH FUNCTION IN DEVELOPMENT</i></b></p>
         <p style="color: #03C04A;"><i>ORIGIN FUNCTION IN DEVELOPMENT</i></p>
