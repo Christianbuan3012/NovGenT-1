@@ -145,6 +145,12 @@ h3 a {
 input[name="nametopic"] {
     width: 300px;
 }
+input[name="forget"]{
+    background-color: firebrick;
+    color: white;
+    padding: 10px;
+    border:none;
+}
 input[name="deleteEntry1"], input[name="deletetopic"], input[name="deleteEntry"], input[name="deletetitle"], input[name="deleteUser"], input[name="logout"]{
     background-color: firebrick;
     color: white;
