@@ -37,6 +37,12 @@
         Log in, or sign up now to create your own!</p>
         <?php endif ?>
         <hr style="height: 3px; background-color: black;">
+        <p><b><i>WORD OF THE DAY</i></b></p>
+        <br>
+        <br>
+        <br>
+        <p style="color: firebrick;"><b>THE WORD OF THE DAY FUNCTION IS STILL IN DEVELOPMENT</b></p>
+        <hr style="height: 3px; background-color: black;">        
     </div>
 
     <!-----------------Left column displaying all topics:------------------------->
@@ -122,7 +128,16 @@
             ?>
         </div>
     </div>
-        
+    <div class="intro">
+        <hr style="height: 3px; background-color: black;">
+        <br>
+        <p style="color: firebrick;"><b><i>ERROR NOTES:</i></b></p>
+        <p style="color: firebrick;"><i>SEARCH BAR FUNCTION ERROR</i></p>
+        <p style="color: firebrick;"><i>FORGET PASSWORD FUNCTION ERROR</i></p>
+        <p style="color: #03C04A;"><b><i>DEVELOPMENT NOTES:</i></b></p>
+        <p style="color: #03C04A;"><b><i>TEXT-TO-SPEECH FUNCTION IN DEVELOPMENT</i></b></p>
+        <p style="color: #03C04A;"><i>ORIGIN FUNCTION IN DEVELOPMENT</i></p>
+    </div>
 </div>
 
 
