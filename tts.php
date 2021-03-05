@@ -1,7 +1,6 @@
 <?php
     include_once 'include/setUp.php';
     include 'include/connect.php';
-    include 'include/dbHandler.php';
     require 'header.php'
 ?>
 <div class="mainbox">
@@ -11,7 +10,7 @@
     <br><br>
 
     <input id='txtInput' / style="width:50%; height: 100px; text-align: center;font-size: 20px; "> <br><br>    
-    <button id='btnSpeak' style="color: white; background-color: #03C04A; border: none; padding: 10px; border-radius: 5px;">Speak!</button>
+    <button id='btnSpeak' style="color: white; background-color: #03C04A; border: none; padding: 10px; border-radius: 5px;" formaction="tts.php">Speak!</button>
 
     <script>
         var txtInput = document.querySelector('#txtInput');
