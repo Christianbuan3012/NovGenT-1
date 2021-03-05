@@ -15,7 +15,7 @@ session_start();
     const loader = document.querySelector(".loader");
     loader.className += " hidden";
     });
-</script>
+    </script>
 </head>
 <body>
     <div class="loader">
@@ -26,6 +26,7 @@ session_start();
             <ul>
                 <li><a style="font-size: 25px; font-weight: 900;" href="index.php">NovGenT</a></li>
                 <li><a href="index.php">Home</a></li>
+                <li><a href="translate.php">Translation</a></li>
                 <?php if(!isset($_SESSION['username'])) : ?>
                     <li><a href="newAccount.php">Sign up</a></li>
                 <?php endif ?>
@@ -33,6 +34,7 @@ session_start();
                 <?php if(isset($_SESSION['username'])) : ?>                                      
                     <li><a href="userProfile.php">Account Settings</a></li>
                     <li><a href="create.php">Create an Entry</a></li>
+                    <li><a href="tts.php">Text to Speech</a></li>
                 <?php endif ?>
 
                 <?php if(isset($_SESSION['usertype'])) : ?>
@@ -42,12 +44,6 @@ session_start();
                     <?php endif ?>
                 <?php endif ?>
             </ul>
-
-            <form action="search.php" method="POST" style="padding-top: 13px;">
-                <input type="search" name="search" id="search" placeholder="SEARCH BAR IS STILL IN DEVELOPMENT" style="width: 300px;">
-                <input type="submit" name="searchbutton" value="Search" style="padding-right: 50px; background: #9AB5C1;color: White; width: 10px;">
-            </form>
-
             <div class="signInOut">
                 <?php 
                 if(isset($_SESSION['username'])) {
@@ -62,9 +58,7 @@ session_start();
                     <input type="text" name="username" id="username" required="">
                     <label for="password">Password:</label>
                     <input type="password" name="password" id="password" required="">
-                    <input type="submit" name="login" id="submit" value="Log in">
-                    <input type="submit" name="forget" id="forget" value="Forget Password?" action="forgetpass.php">
-                    </form>';
+                    <input type="submit" name="login" id="submit" value="Log in">';
                 }
                 ?>
             </div>
