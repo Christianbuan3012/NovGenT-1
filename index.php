@@ -13,7 +13,7 @@
             //Is there a sesson going, say hello after login
             if(isset($_SESSION['username'])) { 
                 $loggedInUser = $_SESSION['username'];
-                echo "<p class='Welcome'>Welcome <b>$loggedInUser</b>, nice to see you!</p>";
+                echo "<p class='Welcome'>Welcome <b><i>$loggedInUser</i></b>, nice to see you!</p>";
             
             //OR, when logged out:
             } elseif(isset($_GET["success"]) == "loggedout") {
@@ -36,12 +36,6 @@
         <?php if(!isset($_SESSION['username'])) : ?>
         Log in, or sign up now to create your own!</p>
         <?php endif ?>
-        <hr style="height: 3px; background-color: black;">
-        <p><b><i>WORD OF THE DAY</i></b></p>
-        <br>
-        <br>
-        <br>
-        <p style="color: firebrick;"><b>THE WORD OF THE DAY FUNCTION IS STILL IN DEVELOPMENT</b></p>
         <hr style="height: 3px; background-color: black;">        
     </div>
 
@@ -128,30 +122,6 @@
             ?>
         </div>
     </div>
-    <div class="intro">
-        <hr style="height: 3px; background-color: black;">
-        <br>
-        <p style="color: firebrick;"><b><i>ERROR NOTES:</i></b></p>
-        <p style="color: firebrick;"><i>SEARCH BAR FUNCTION ERROR</i></p>
-        <p style="color: firebrick;"><i>FORGET PASSWORD FUNCTION ERROR</i></p>
-        <br>
-        <p style="color: #03C04A;"><b><i>DEVELOPMENT NOTES:</i></b></p>
-        <p style="color: #03C04A;"><b><i>TEXT-TO-SPEECH FUNCTION IN DEVELOPMENT</i></b></p>
-        <p style="color: #03C04A;"><i>ORIGIN FUNCTION IN DEVELOPMENT</i></p>
-    </div>
 </div>
-
-
-<footer style="padding-top: 20px;">
-    <nav>
-            <ul>
-                <li><a style="font-size: 22px;" href="About.php">About NovGenT</a></li>
-                <li><a style="font-size: 22px;" href="guidelines.php">NovGenT's Guidelines</a></li>               
-                <li><a href="www.facebook.com" style="font-weight: 700; font-size: 20px;">Facebook</a></li>
-                <li><a href="www.twitter.com"  style="font-weight: 700; font-size: 20px;">Twitter</a></li>
-            </ul>
-
-    </nav>
-</footer>
 </body>
 </html>
