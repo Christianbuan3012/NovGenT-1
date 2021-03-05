@@ -27,6 +27,7 @@ session_start();
                 <li><a style="font-size: 25px; font-weight: 900;" href="index.php">NovGenT</a></li>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="translate.php">Translation</a></li>
+                <li><a href="tts.php">Text to Speech</a></li>
                 <?php if(!isset($_SESSION['username'])) : ?>
                     <li><a href="newAccount.php">Sign up</a></li>
                 <?php endif ?>
@@ -34,7 +35,6 @@ session_start();
                 <?php if(isset($_SESSION['username'])) : ?>                                      
                     <li><a href="userProfile.php">Account Settings</a></li>
                     <li><a href="create.php">Create an Entry</a></li>
-                    <li><a href="tts.php">Text to Speech</a></li>
                 <?php endif ?>
 
                 <?php if(isset($_SESSION['usertype'])) : ?>
