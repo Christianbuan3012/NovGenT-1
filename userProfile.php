@@ -28,12 +28,6 @@
                         }
                     } 
                 ?>
-                <!--Form for updating the username-->
-                <form action="userProfile.php" method="post">
-                    <label for="newUsername">New username:</label><br>
-                    <input type="text" name="newUsername" id="newUsername" required=""><br><br>                                
-                    <input type="submit" name="changeUsername" value="Change username">
-                </form>
             <?php endif ?>
             </div>
             <br>
