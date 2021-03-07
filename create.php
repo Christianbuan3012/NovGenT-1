@@ -7,7 +7,7 @@
     function check_val()
     {
          var bad_words=new Array("fuck","Fuck","Fuck you","damn","shit","frickin","dick","goddamn","fuck you","piss off","bloody hell","wanker","bollocks","bugger off","dick head", "ass hoke", "ass", "bitch", "son of a bitch", "bastard","cunt","choad","crikey","shag","motherfucker","asshole","shit","bullshit","crap","nigga","prick","shit ass","slut","whore");
-         var check_text=document.getElementById("entrytitle","content","content1").value;
+         var check_text=document.getElementById("content").value;
          var error=0;
          var hidden = false;
          for(var i=0;i<bad_words.length;i++)
